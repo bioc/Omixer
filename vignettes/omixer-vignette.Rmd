@@ -349,16 +349,16 @@ simpleLayout <- omixerRand(sampleList, sampleId="sampleId",
 
 Here, we see strong evidence of a correlation between:
 
-* Age and chip (τ = -0.082, p = 0.005)
-* Age and plate (τ = -0.073, p = 0.011)
-* Date and plate (τ = 0.082, p = 0.005)
+* Age and plate (r = -0.117, p = 0.004)
+* BMI and chip (r = -0.094, p = 0.02)
+* Date and plate (r = 0.127, p = 0.002)
 
 These patterns threaten the validity of our future inferences, as the effects 
 of biological factors are entangled with technical variations. 
 
 In comparison, there is insufficient evidence to suggest correlation between 
 any biological factor and technical covariate in the **Omixer** produced 
-layout, and the largest correlation coefficient returned is 0.048, which is 
+layout, and the largest correlation coefficient returned is -0.052, which is 
 considerably lower than many seen in the simple randomized layout.
 
 ## Regenerating layouts ##

@@ -55,8 +55,9 @@ omixerSheet <- function(omixerLayout=omixerLayout, group) {
     } else {
         omixerLayout$bottom <- NA
     }
-
     
+    cbPalette <- c("#CC79A7", "#56B4E9", "#009E73", "#F0E442", 
+                   "#0072B2", "#D55E00", "#E69F00", "#999999")
     
     ## Create list of plate layouts
     ggPlateList <- lapply(seq_len(max(omixerLayout$plate)), function(x) {
@@ -68,7 +69,7 @@ omixerSheet <- function(omixerLayout=omixerLayout, group) {
             colour="grey30", size=3.5, nudge_y=0.2) +
         geom_text(aes(label=ifelse(is.na(top), "", as.character(top))),
             colour="grey30", fontface="bold", size=4, nudge_y=-0.1) +
-        scale_fill_brewer(palette="Set3") +
+        scale_fill_manual(values=cbPalette, drop=F) +
         scale_x_discrete(name="",
             limits=factor(c(min(as.numeric(omixerLayout$column)):
                          max(as.numeric(omixerLayout$column)))),

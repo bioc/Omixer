@@ -56,9 +56,9 @@ omixerCorr <- function(x, y) {
         corVal <- as.numeric(cv)
         corP <- chisq.test(x, y)$p.value
     } else {
-        ## Otherwise, use Kendall's correlation coefficient and p-value
-        corVal <- cor.test(x, y, method="kendall", exact=FALSE)$estimate
-        corP <- cor.test(x, y, method="kendall", exact=FALSE)$p.value
+        ## Otherwise, use Pearson's correlation coefficient and p-value
+        corVal <- cor.test(x, y, exact=FALSE)$estimate
+        corP <- cor.test(x, y, exact=FALSE)$p.value
     }
 
     ## Return as a data frame of estimate and p-value

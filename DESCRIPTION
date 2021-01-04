@@ -24,7 +24,7 @@ Imports:
     stats,
     stringr
 Depends: R (>= 4.0.0)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,
