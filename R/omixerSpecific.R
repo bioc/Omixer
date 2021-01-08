@@ -185,24 +185,25 @@ omixerSpecific <- function(df, sampleId="sampleId", block="block",
 
     ## Visualize correlations
     print(ggplot(corTb, aes(x=randVars, y=techVars)) +
-        geom_tile(aes(fill=corVal), size=3, colour="white",
-            show.legend=FALSE) +
-        geom_text(aes(label=round(corVal, 3)),
-            colour=ifelse(corTb$corVal < mean(corTb$corVal), "white",
-            "grey30"), fontface="bold", nudge_y=0.2, size=8) +
-        geom_text(aes(label=paste("p =",round(corP, 3))),
-            colour=ifelse(corTb$corVal < mean(corTb$corVal), "white",
-            "grey30"), nudge_y=-0.2, size=6) +
-        scale_fill_distiller(palette="YlGnBu") +
-        scale_x_discrete(position="top", name="Randomization variables \n",
-            label=function(x) abbreviate(x, minlength=6), expand=c(0,0)) +
-        scale_y_discrete(name="Technical \n covariates",
-            label=function(x) abbreviate(x, minlength=6), expand=c(0,0)) +
-        ggtitle("Correlations present in the chosen layout") + coord_equal() +
-        theme(plot.title=element_text(hjust=0.5, size=24),
-            axis.title=element_text(face="bold", size=18),
-            axis.ticks=element_blank(), axis.text.x=element_text(size=16),
-            axis.text.y=element_text(angle=90, size=16, vjust=1)))
+    geom_tile(aes(fill=corVal), size=3, colour="white",
+        show.legend=FALSE) +
+    geom_text(aes(label=format(round(corVal, 3), nsmall=3)),
+        colour=ifelse(corTb$corVal < mean(corTb$corVal), "white", "grey30"), 
+        fontface="bold", nudge_y=0.2, size=8) +
+    geom_text(aes(label=ifelse(corP == 0, "p < 0.001", 
+        paste("p =",format(round(corP, 3), nsmall = 3)))),
+        colour=ifelse(corTb$corVal < mean(corTb$corVal), "white", "grey30"), 
+        nudge_y=-0.2, size=6) +
+    scale_fill_distiller(palette="YlGnBu") +
+    scale_x_discrete(position="top", name="Randomization variables \n",
+        label=function(x) abbreviate(x, minlength=6), expand=c(0,0)) +
+    scale_y_discrete(name="Technical \n covariates",
+        label=function(x) abbreviate(x, minlength=6), expand=c(0,0)) +
+    ggtitle("Correlations present in the chosen layout") + coord_equal() +
+    theme(plot.title=element_text(hjust=0.5, size=24),
+        axis.title=element_text(face="bold", size=18),
+        axis.ticks=element_blank(), axis.text.x=element_text(size=16),
+        axis.text.y=element_text(angle=90, size=16, vjust=1)))
 
     return(omixerLayout)
 }

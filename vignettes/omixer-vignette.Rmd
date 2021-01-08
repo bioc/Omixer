@@ -268,7 +268,7 @@ example.
 
 Here, our toy data represents 616 samples ready to be sent off for EPIC DNA 
 methylation profiling. These samples will be randomized to 7 96-well plates 
-where each of the 8 columns are transferred to a 12-sample EPIC chip. The 
+where each of the 12 columns are transferred to a 8-sample EPIC chip. The 
 last chip on each plate needs to be kept empty for control samples, and we 
 will communicate this to **Omixer** using the `mask` option.
 

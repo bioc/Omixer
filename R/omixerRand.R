@@ -239,10 +239,11 @@ omixerRand <- function(df, sampleId="sampleId", block="block", iterNum=1000,
     ## Visualize correlations
     print(ggplot(corSelect, aes(x=randVars, y=techVars)) +
     geom_tile(aes(fill=corVal), size=3, colour="white", show.legend=FALSE) +
-    geom_text(aes(label=round(corVal, 3)),
+    geom_text(aes(label=format(round(corVal, 3), nsmall=3)),
         colour=ifelse(corSelect$corVal < mean(corSelect$corVal), "white",
         "grey30"), fontface="bold", nudge_y=0.2, size=8) +
-    geom_text(aes(label=paste("p =", round(corP, 3))),
+    geom_text(aes(label=ifelse(corP == 0, "p < 0.001",
+        paste("p =", format(round(corP, 3), nsmall=3)))),
         colour=ifelse(corSelect$corVal < mean(corSelect$corVal), "white",
         "grey30"), nudge_y=-0.2, size=6) +
     scale_fill_distiller(palette="YlGnBu") +
