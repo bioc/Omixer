@@ -216,13 +216,17 @@ omixerRand <- function(df, sampleId="sampleId", block="block", iterNum=1000,
 
     ## Save correlations for chosen layout
     if(!is.na(chosenLayout)){
-        corSelect <- corTbList[[chosenLayout]]
-        omixerLayout <- sampleLayoutList[[chosenLayout]][[1]]
-        randomSeed <- sampleLayoutList[[chosenLayout]][[2]]
+      corSelect <- corTbList[[chosenLayout]]
+      omixerLayout <- sampleLayoutList[[chosenLayout]][[1]]
+      .Random.seed <- sampleLayoutList[[chosenLayout]][[2]]
+      save(.Random.seed, file="randomSeed.Rdata")
+      message("Random seed saved to working directory")
     } else {
-        corSelect <- corTbList[[nonoptLayout]]
-        omixerLayout <- sampleLayoutList[[nonoptLayout]][[1]]
-        randomSeed <- sampleLayoutList[[nonoptLayout]][[2]]
+      corSelect <- corTbList[[nonoptLayout]]
+      omixerLayout <- sampleLayoutList[[nonoptLayout]][[1]]
+      .Random.seed <- sampleLayoutList[[nonoptLayout]][[2]]
+      save(.Random.seed, file="randomSeed.Rdata")
+      message("Random seed saved to working directory")
     }
 
     ## Rejoin layout with masked wells
@@ -231,10 +235,6 @@ omixerRand <- function(df, sampleId="sampleId", block="block", iterNum=1000,
     omixerLayout <- omixerLayout %>% arrange(plate, well)
     omixerLayout$permVar <- NULL
     omixerLayout$layoutNum <- NULL
-
-    ## Print information
-    message("Random seed saved to working directory")
-    save(randomSeed, file="randomSeed.Rdata")
 
     ## Visualize correlations
     print(ggplot(corSelect, aes(x=randVars, y=techVars)) +

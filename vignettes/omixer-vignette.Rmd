@@ -231,15 +231,14 @@ many randomization variables, we provide the `omixerSpecific` function to
 reproduce previously generated layouts. After running `omixerRand`, the seed 
 of the optimal layout is saved to the working directory.
 
-After setting the global variable `.Random.seed`, you can run `omixerSpecific`
-to regenerate the optimal layout.
+After loading `.Random.seed`, you can run `omixerSpecific` to regenerate the 
+optimal layout.
 
 ```{r omixer_specific_rna, eval=FALSE}
 load("randomSeed.Rdata")
-.GlobalEnv$.Random.seed <- randomSeed
 
 omixerLayout <- omixerSpecific(sampleList, sampleId="sampleId", 
-    block="block", wells=96, div="row", 
+    block="block", wells=48, div="row", 
     plateNum=1, randVars=randVars)
 ```
 
@@ -332,6 +331,22 @@ omixerLayout <- omixerRand(sampleList, sampleId="sampleId",
     randVars=randVars, mask=mask)
 ```
 
+## Regenerating layouts ##
+
+As in the simple example, any **Omixer** layouts can be regenerated using the 
+saved random environment in the `omixerSpecific` function. 
+
+After loading `.Random.seed`, you can run `omixerSpecific` to regenerate the 
+optimal layout.
+
+```{r omixer_specific_dna, eval=FALSE}
+load("randomSeed.Rdata")
+
+omixerLayout <- omixerSpecific(sampleList, sampleId="sampleId", 
+    block="block", wells=96, div="col", plateNum=7, 
+    randVars=randVars, mask=mask)
+```
+
 ## Simple Randomization ##
 
 Looking at the above correlations, you may wonder how **Omixer** compares to 
@@ -361,23 +376,6 @@ any biological factor and technical covariate in the **Omixer** produced
 layout, and the largest correlation coefficient returned is -0.052, which is 
 considerably lower than many seen in the simple randomized layout.
 
-## Regenerating layouts ##
-
-As in the simple example, any **Omixer** layouts can be regenerated using the 
-saved random environment in the `omixerSpecific` function. 
-
-After setting the global variable `.Random.seed`, you can run `omixerSpecific`
-to regenerate the optimal layout.
-
-```{r omixer_specific_dna, eval=FALSE}
-load("randomSeed.Rdata")
-.GlobalEnv$.Random.seed <- randomSeed
-
-omixerLayout <- omixerSpecific(sampleList, sampleId="sampleId", 
-    block="block", wells=96, div="col", plateNum=7, 
-    randVars=randVars, mask=mask)
-```
-
 ## Sample Sheets ##
 
 The bridge between dry and wet labs can be precarious. Technicians are often 
@@ -402,6 +400,15 @@ omixerSheet(omixerLayout, group="tissue")
 ```{r echo=FALSE, out.width='100%'}
 knitr::include_graphics('./omixer_sample_sheets_dna.PNG')
 ```
+
+# Installing Omixer #
+
+Some users recieve an error when trying to install Omixer, stating that it is not available for their version of R. In order to solve this error you must update Bioconductor with the following code:
+
+```{r eval=FALSE}
+BiocManager::install()
+```
+
 
 # References #
 
