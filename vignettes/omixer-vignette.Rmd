@@ -163,6 +163,15 @@ techVars <- c("chip", "chipPos")
 layout
 ```
 
+## Number of Iterations ##
+
+The number of iterations performed by the `omixerRand` function can be altered 
+using the `iterNum` option. By default, this is set to 1,000 but in complex 
+scenarios with multiple nested batches and biological variables of interest,
+this may be increased to optimize randomization further. This will increase 
+the run time however, and it may be preferable to run `omixerRand` with a 
+lower `iterNum` initially, and inspect the resulting correlations in order 
+to assess if this was sufficient or not. 
 
 # Simple example #
 
@@ -249,7 +258,9 @@ be input into `omixerSheet` to produce lab-friendly sample layouts. These will
 be saved in your working directory as a PDF document. 
 
 It is possible to colour code these sheets by a specific factor using the 
-`group` option, and this is demonstrated in the extended example.
+`group` option, and this is demonstrated in the extended example. If the text 
+labels of the sample sheets are too large, then these can additionally be 
+changed using the `group.text.size` and `sample.text.size` options. 
 
 ```{r omixer_sheet_rna}
 omixerSheet(omixerLayout)
