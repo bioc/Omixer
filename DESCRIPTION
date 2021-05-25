@@ -1,15 +1,13 @@
 Package: Omixer
 Type: Package
-Title: Omixer: multivariate and reproducible sample randomization to proactively 
-    counter batch effects in omics studies
-Version: 1.2.0
+Title: Randomize Samples for -omics Profiling
+Version: 1.3.1
 Authors@R: person("Lucy", "Sinke", 
     email="l.j.sinke@lumc.nl", role=c("cre", "aut"))
-Description: Omixer - an Bioconductor package for multivariate and 
-    reproducible sample randomization, which ensures optimal sample 
-    distribution across batches with well-documented methods. It outputs 
-    lab-friendly sample layouts, reducing the risk of sample mixups when 
-    manually pipetting randomized samples. 
+Description: Omixer - an R package for multivariate and reproducible 
+    randomization with lab-friendly sample layouts. Omixer ensures optimal 
+    sample distribution across batches with well-documented methods, and 
+    can output intuitive sample sheets for the wet lab if needed. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -25,7 +23,7 @@ Imports:
     grid,
     stats,
     stringr
-Depends: R (>= 4.0.0)
+Depends: R (>= 3.0.0)
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
@@ -36,4 +34,4 @@ Suggests:
 VignetteBuilder: knitr
 biocViews: DataRepresentation, ExperimentalDesign, QualityControl, 
     Software, Visualization
-BugReports: https://github.com/molepi/Omixer/issues
+BugReports: l.j.sinke@lumc.nl 

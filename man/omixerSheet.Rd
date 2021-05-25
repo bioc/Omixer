@@ -4,12 +4,21 @@
 \alias{omixerSheet}
 \title{Sample Sheet Generation}
 \usage{
-omixerSheet(omixerLayout = omixerLayout, group)
+omixerSheet(
+  omixerLayout = omixerLayout,
+  group,
+  group.text.size = 3.5,
+  sample.text.size = 4
+)
 }
 \arguments{
 \item{omixerLayout}{Randomized sample list}
 
 \item{group}{Colour-coding indicator}
+
+\item{group.text.size}{Change size of group text (default: 3.5)}
+
+\item{sample.text.size}{Change size of sample text (default: 4)}
 }
 \value{
 PDF of sample layout in working directory

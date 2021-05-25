@@ -6,6 +6,8 @@
 #'
 #' @param omixerLayout Randomized sample list
 #' @param group Colour-coding indicator
+#' @param group.text.size Change size of group text (default: 3.5)
+#' @param sample.text.size Change size of sample text (default: 4)
 #'
 #' @return PDF of sample layout in working directory
 #'
@@ -39,7 +41,8 @@
 #' 
 #' omixerSheet(omixerLayout)
 
-omixerSheet <- function(omixerLayout=omixerLayout, group) {
+omixerSheet <- function(omixerLayout=omixerLayout, group, 
+    group.text.size = 3.5, sample.text.size = 4) {
 
     ## Set labels
     sampleId <- NULL
@@ -55,8 +58,9 @@ omixerSheet <- function(omixerLayout=omixerLayout, group) {
     } else {
         omixerLayout$bottom <- NA
     }
-
     
+    cbPalette <- c("#CC79A7", "#56B4E9", "#009E73", "#F0E442", 
+                   "#0072B2", "#D55E00", "#E69F00", "#999999")
     
     ## Create list of plate layouts
     ggPlateList <- lapply(seq_len(max(omixerLayout$plate)), function(x) {
@@ -65,10 +69,11 @@ omixerSheet <- function(omixerLayout=omixerLayout, group) {
         geom_tile(aes(x=column, y=row, fill=factor(bottom)), colour="grey20", size=1.5,
             show.legend=FALSE) + coord_equal() +
         geom_text(aes(label=ifelse(is.na(bottom), "", as.character(bottom))),
-            colour="grey30", size=3.5, nudge_y=0.2) +
+            colour="grey30", size=group.text.size, nudge_y=0.2) +
         geom_text(aes(label=ifelse(is.na(top), "", as.character(top))),
-            colour="grey30", fontface="bold", size=4, nudge_y=-0.1) +
-        scale_fill_brewer(palette="Set3") +
+            colour="grey30", fontface="bold", size=sample.text.size, 
+            nudge_y=-0.1) +
+        scale_fill_manual(values=cbPalette, drop=F) +
         scale_x_discrete(name="",
             limits=factor(c(min(as.numeric(omixerLayout$column)):
                          max(as.numeric(omixerLayout$column)))),

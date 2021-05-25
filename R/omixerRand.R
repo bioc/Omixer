@@ -216,13 +216,17 @@ omixerRand <- function(df, sampleId="sampleId", block="block", iterNum=1000,
 
     ## Save correlations for chosen layout
     if(!is.na(chosenLayout)){
-        corSelect <- corTbList[[chosenLayout]]
-        omixerLayout <- sampleLayoutList[[chosenLayout]][[1]]
-        randomSeed <- sampleLayoutList[[chosenLayout]][[2]]
+      corSelect <- corTbList[[chosenLayout]]
+      omixerLayout <- sampleLayoutList[[chosenLayout]][[1]]
+      .Random.seed <- sampleLayoutList[[chosenLayout]][[2]]
+      save(.Random.seed, file="randomSeed.Rdata")
+      message("Random seed saved to working directory")
     } else {
-        corSelect <- corTbList[[nonoptLayout]]
-        omixerLayout <- sampleLayoutList[[nonoptLayout]][[1]]
-        randomSeed <- sampleLayoutList[[nonoptLayout]][[2]]
+      corSelect <- corTbList[[nonoptLayout]]
+      omixerLayout <- sampleLayoutList[[nonoptLayout]][[1]]
+      .Random.seed <- sampleLayoutList[[nonoptLayout]][[2]]
+      save(.Random.seed, file="randomSeed.Rdata")
+      message("Random seed saved to working directory")
     }
 
     ## Rejoin layout with masked wells
@@ -232,17 +236,14 @@ omixerRand <- function(df, sampleId="sampleId", block="block", iterNum=1000,
     omixerLayout$permVar <- NULL
     omixerLayout$layoutNum <- NULL
 
-    ## Print information
-    message("Random seed saved to working directory")
-    save(randomSeed, file="randomSeed.Rdata")
-
     ## Visualize correlations
     print(ggplot(corSelect, aes(x=randVars, y=techVars)) +
     geom_tile(aes(fill=corVal), size=3, colour="white", show.legend=FALSE) +
-    geom_text(aes(label=round(corVal, 3)),
+    geom_text(aes(label=format(round(corVal, 3), nsmall=3)),
         colour=ifelse(corSelect$corVal < mean(corSelect$corVal), "white",
         "grey30"), fontface="bold", nudge_y=0.2, size=8) +
-    geom_text(aes(label=paste("p =", round(corP, 3))),
+    geom_text(aes(label=ifelse(corP == 0, "p < 0.001",
+        paste("p =", format(round(corP, 3), nsmall=3)))),
         colour=ifelse(corSelect$corVal < mean(corSelect$corVal), "white",
         "grey30"), nudge_y=-0.2, size=6) +
     scale_fill_distiller(palette="YlGnBu") +
