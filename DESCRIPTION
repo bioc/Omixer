@@ -7,7 +7,7 @@ Authors@R: person("Lucy", "Sinke",
 Description: Omixer - an R package for multivariate and reproducible 
     randomization with lab-friendly sample layouts. Omixer ensures optimal 
     sample distribution across batches with well-documented methods, and 
-    can output intuitive sample sheets for the wet lab if needed. 
+    can output lab-friendly sample sheets for the wet lab if needed. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

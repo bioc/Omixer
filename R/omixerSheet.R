@@ -59,21 +59,27 @@ omixerSheet <- function(omixerLayout=omixerLayout, group,
         omixerLayout$bottom <- NA
     }
     
-    cbPalette <- c("#CC79A7", "#56B4E9", "#009E73", "#F0E442", 
-                   "#0072B2", "#D55E00", "#E69F00", "#999999")
+    groupNames <- omixerLayout$bottom
+    myColors <- brewer.pal(length(levels(factor(groupNames))), "Set3")
+    names(myColors) <- unique(groupNames)
+    omixerLayout$hexcode <- myColors[omixerLayout$bottom]
     
     ## Create list of plate layouts
     ggPlateList <- lapply(seq_len(max(omixerLayout$plate)), function(x) {
         ggPlate <- omixerLayout %>% filter(plate == x) %>%
         ggplot(aes(x=column, y=row)) +
-        geom_tile(aes(x=column, y=row, fill=factor(bottom)), colour="grey20", size=1.5,
+        geom_tile(aes(x=column, y=row, fill=hexcode), colour="grey20", size=1.5,
             show.legend=FALSE) + coord_equal() +
         geom_text(aes(label=ifelse(is.na(bottom), "", as.character(bottom))),
             colour="grey30", size=group.text.size, nudge_y=0.2) +
         geom_text(aes(label=ifelse(is.na(top), "", as.character(top))),
             colour="grey30", fontface="bold", size=sample.text.size, 
             nudge_y=-0.1) +
-        scale_fill_manual(values=cbPalette, drop=F) +
+            scale_fill_manual(
+                limits = omixerLayout$hexcode[omixerLayout$plate == x],
+                values = omixerLayout$hexcode[omixerLayout$plate == x],
+                drop = F
+            )+
         scale_x_discrete(name="",
             limits=factor(c(min(as.numeric(omixerLayout$column)):
                          max(as.numeric(omixerLayout$column)))),
@@ -83,8 +89,8 @@ omixerSheet <- function(omixerLayout=omixerLayout, group,
                 min(as.numeric(omixerLayout$row)))])),
             expand=c(0,0)) +
         ggtitle(paste("Sample Overview for Plate", x)) +
-        theme(plot.title=element_text(size=22, face="bold", hjust=0.5,
-            colour="grey30"), axis.text=element_text(size=18, face="bold"),
+        theme(plot.title=element_text(size=18, face="bold", hjust=0.5,
+            colour="grey30"), axis.text=element_text(size=16, face="bold"),
             axis.ticks=element_blank(), panel.grid=element_blank(),
             panel.background=element_rect("grey80"),
             panel.border=element_rect("grey20", fill=NA, size=3))
