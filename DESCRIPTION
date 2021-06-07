@@ -22,8 +22,9 @@ Imports:
     tidyselect,
     grid,
     stats,
-    stringr
-Depends: R (>= 3.0.0)
+    stringr,
+    RColorBrewer
+Depends: R (>= 4.0)
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
@@ -34,4 +35,4 @@ Suggests:
 VignetteBuilder: knitr
 biocViews: DataRepresentation, ExperimentalDesign, QualityControl, 
     Software, Visualization
-BugReports: l.j.sinke@lumc.nl 
+BugReports: <l.j.sinke@lumc.nl>

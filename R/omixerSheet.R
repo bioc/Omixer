@@ -16,6 +16,7 @@
 #' @import tibble
 #' @import forcats
 #' @import stringr
+#' @import RColorBrewer
 #' @importFrom dplyr select filter
 #' @importFrom gridExtra marrangeGrob
 #' @importFrom tidyselect everything all_of
@@ -50,19 +51,20 @@ omixerSheet <- function(omixerLayout=omixerLayout, group,
     bottom <- NULL
     top <- NULL
     plate <- NULL
+    hexcode <- NULL
 
     omixerLayout <- omixerLayout %>% mutate(top=sampleId)
     if(!missing(group)) {
         omixerLayout <- omixerLayout %>% 
             select(bottom=all_of(group), everything())
+        groupNames <- omixerLayout$bottom
+        myColors <- brewer.pal(length(unique(groupNames)), "Set3")
+        names(myColors) <- unique(groupNames)
+        omixerLayout$hexcode <- myColors[omixerLayout$bottom]
     } else {
         omixerLayout$bottom <- NA
+        omixerLayout$hexcode <- 'grey40'
     }
-    
-    groupNames <- omixerLayout$bottom
-    myColors <- brewer.pal(length(levels(factor(groupNames))), "Set3")
-    names(myColors) <- unique(groupNames)
-    omixerLayout$hexcode <- myColors[omixerLayout$bottom]
     
     ## Create list of plate layouts
     ggPlateList <- lapply(seq_len(max(omixerLayout$plate)), function(x) {

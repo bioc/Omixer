@@ -74,16 +74,22 @@ omixerSpecific <- function(df, sampleId="sampleId", block="block",
                      well=rep(seq_len(wells), plateNum),
                      row=factor(rep(seq_len(rowNum), colNum*plateNum),
                                 labels=toupper(letters[seq_len(rowNum)])),
-                     column=rep(rep(seq_len(colNum), each=rowNum), plateNum), mask=mask,
-                     chip=case_when(div == "col" ~ column, div == "row" ~ as.integer(row),
-                                    div == "col-block" ~ as.integer(ceiling(column / 2)),
-                                    div == "row-block" ~ as.integer(ceiling(as.numeric(row) / 2))),
+                     column=rep(rep(seq_len(colNum), each=rowNum), plateNum), 
+                     mask=mask,
+                     chip=case_when(div == "col" ~ column, 
+                                    div == "row" ~ as.integer(row),
+                                    div == "col-block" ~ as.integer(
+                                      ceiling(column / 2)),
+                                    div == "row-block" ~ as.integer(
+                                      ceiling(as.numeric(row) / 2))),
                      chipPos = case_when(div == "col" ~ as.numeric(row),
                                          div == "row" ~ as.numeric(column),
-                                         div == "col-block" ~ ifelse(column %% 2 == 0,
-                                                                     as.numeric(row) + rowNum, row),
-                                         div == "row-block" ~ ifelse(as.numeric(row) %% 2 == 0,
-                                                                     column + colNum, column)))
+                                         div == "col-block" ~ ifelse(
+                                           column %% 2 == 0, 
+                                           as.numeric(row) + rowNum, row),
+                                         div == "row-block" ~ ifelse(
+                                           as.numeric(row) %% 2 == 0,
+                                           column + colNum, column)))
     } else {
       stop("You must either specify a custom layout or a number of wells.")
     }
