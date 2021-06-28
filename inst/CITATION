@@ -1,5 +1,5 @@
 citEntry(entry="article",
-         title = "Omixer: multivariate and reproducible sample randomization to proactively counter batch effects in omics studies",
+         title = " Omixer: multivariate and reproducible sample randomization to proactively counter batch effects in omics studies",
          author = personList(person("Lucy", "Sinke"),
            as.person("Davy Cats"),
            as.person("Bastiaan T. Heijmans")),
@@ -7,5 +7,5 @@ citEntry(entry="article",
          journal = "Bioinformatics",
          url = "https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btab159/6162882",
          textVersion = 
-         "Sinke, L., et al. (2021)Omixer: multivariate and reproducible sample randomization to proactively counter batch effects in omics studies. Bioinformatics")
+         "Sinke, L., et al. (2021) Omixer: multivariate and reproducible sample randomization to proactively counter batch effects in omics studies. Bioinformatics")
 
