@@ -27,7 +27,7 @@ Batch effects can have a major impact on the results of omics studies
 [@Leek2010]. Randomization is the first, and arguably most influential, step 
 in handling them. However, its implementation suffers from a few key issues:
 
-* A single random draw can inadvertently result in high correlation between
+* A single,ATTEMPT314 random draw can inadvertently result in high correlation between
 technical covariates and biological factors. Particularly in studies with 
 large numbers of batches and outcomes of interest, minimizing these 
 correlations is crucial. 
